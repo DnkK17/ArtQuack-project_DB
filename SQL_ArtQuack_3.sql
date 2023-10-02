@@ -1,6 +1,5 @@
 CREATE TABLE [Level] (
   levelID int PRIMARY KEY,
-  customerID int,
   levelName varchar(500)
 );
 
@@ -19,10 +18,10 @@ CREATE TABLE [Instructor] (
   userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
   [name] varchar(30),
   email varchar(30),
-  job varchar(30),
   [certificate] varchar(500),
   rate int,
-  summarize varchar(500)
+  summarize varchar(500),
+  [status] bit
 );
 
 CREATE TABLE [Category] (
@@ -49,21 +48,23 @@ CREATE TABLE [Course] (
 CREATE TABLE [Topic] (
   topicID int PRIMARY KEY,
   [name] varchar(500),
-  videoURL varchar(500),
+  videoURL varchar(1000),
   courseID int FOREIGN KEY REFERENCES [Course]([courseID])
 );
 
 CREATE TABLE [User] (
-  userName int PRIMARY KEY,
+  userName varchar(100) PRIMARY KEY,
   userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
+  id int,
+  [name] varchar(100),
   email varchar(500),
   [password] varchar(30),
-  phone int,
+  [status] bit
 );
 
 CREATE TABLE [Enroll] (
   enrollID int PRIMARY KEY,
-  userID int FOREIGN KEY REFERENCES [User]([userName]),
+  userName varchar(100) FOREIGN KEY REFERENCES [User]([userName]),
   [courseID] int FOREIGN KEY REFERENCES [Course]([courseID]),
   [status] bit
 );
@@ -79,7 +80,7 @@ CREATE TABLE [EnrollTopic] (
 CREATE TABLE [ArtWork] (
   artworkID int PRIMARY KEY,
   enTopicID int FOREIGN KEY REFERENCES [EnrollTopic]([enTopicID]),
-  customerID int,
+  userID int,
   instructorID int,
   [status] bit,
 );
@@ -87,7 +88,7 @@ CREATE TABLE [ArtWork] (
 CREATE TABLE [Review] (
   reviewID int PRIMARY KEY,
   artworkID int FOREIGN KEY REFERENCES [ArtWork]([artworkID]),
-  customerID int,
+  userID int,
   instructorID int,
   rate int,
   comment varchar(500),
@@ -103,9 +104,3 @@ CREATE TABLE [Post] (
   content varchar(3000),
   [status] bit,
 );
-
-ALTER TABLE [dbo].[User] add ID int, name varchar(100)
-alter table [dbo].[User] drop column [phone]
-alter table [dbo].[Instructor] drop column [job]
-alter table [dbo].[User] add status bit
-alter table [dbo].[Instructor] add status bit
