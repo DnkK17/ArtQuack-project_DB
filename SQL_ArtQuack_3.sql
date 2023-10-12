@@ -98,7 +98,7 @@ CREATE TABLE [Review] (
 
 CREATE TABLE [Post] (
   postID int PRIMARY KEY,
-  userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
+  userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]), //empty userRoleID - replace w 'title'
   cateID int FOREIGN KEY REFERENCES [Category]([cateID]),
   topicID int FOREIGN KEY REFERENCES [Topic]([topicID]),
   content varchar(3000),
