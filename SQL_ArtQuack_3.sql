@@ -14,7 +14,7 @@ CREATE TABLE [UserRole] (
 );
 
 CREATE TABLE [Instructor] (
-  instructorID int PRIMARY KEY,
+  instructorID varchar(50) PRIMARY KEY,
   userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
   [name] varchar(30),
   email varchar(30),
@@ -31,11 +31,11 @@ CREATE TABLE [Category] (
 
 CREATE TABLE [Course] (
   [course_code] varchar(30),
-  instructorID int FOREIGN KEY REFERENCES [Instructor]([instructorID]),
+  instructorID varchar(50) FOREIGN KEY REFERENCES [Instructor]([instructorID]),
   cateID int FOREIGN KEY REFERENCES [Category]([cateID]),
   levelID int FOREIGN KEY REFERENCES [Level]([levelID]),
   reviewID int,
-  courseID int PRIMARY KEY,
+  courseID varchar(50) PRIMARY KEY,
   [name] varchar(500),
   [description] varchar(500),
   [upload_date] date,
@@ -46,16 +46,16 @@ CREATE TABLE [Course] (
 );
 
 CREATE TABLE [Topic] (
-  topicID int PRIMARY KEY,
+  topicID varchar(50) PRIMARY KEY,
   [name] varchar(500),
   videoURL varchar(1000),
-  courseID int FOREIGN KEY REFERENCES [Course]([courseID])
+  courseID varchar(50) FOREIGN KEY REFERENCES [Course]([courseID])
 );
 
 CREATE TABLE [User] (
   userName varchar(100) PRIMARY KEY,
   userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
-  id int,
+  id varchar(50),
   [name] varchar(100),
   email varchar(500),
   [password] varchar(30),
@@ -63,33 +63,33 @@ CREATE TABLE [User] (
 );
 
 CREATE TABLE [Enroll] (
-  enrollID int PRIMARY KEY,
+  enrollID varchar(50) PRIMARY KEY,
   userName varchar(100) FOREIGN KEY REFERENCES [User]([userName]),
-  [courseID] int FOREIGN KEY REFERENCES [Course]([courseID]),
+  [courseID] varchar(50) FOREIGN KEY REFERENCES [Course]([courseID]),
   [status] bit
 );
 
 CREATE TABLE [EnrollTopic] (
-  enTopicID int PRIMARY KEY,
-  topicID int FOREIGN KEY REFERENCES [Topic]([topicID]),
-  enrollID int FOREIGN KEY REFERENCES [Enroll]([enrollID]),
+  enTopicID varchar(50) PRIMARY KEY,
+  topicID varchar(50) FOREIGN KEY REFERENCES [Topic]([topicID]),
+  enrollID varchar(50) FOREIGN KEY REFERENCES [Enroll]([enrollID]),
   enroll_date date,
   [status] bit
 );
 
 CREATE TABLE [ArtWork] (
-  artworkID int PRIMARY KEY,
-  enTopicID int FOREIGN KEY REFERENCES [EnrollTopic]([enTopicID]),
-  userID int,
-  instructorID int,
+  artworkID varchar(50) PRIMARY KEY,
+  enTopicID varchar(50) FOREIGN KEY REFERENCES [EnrollTopic]([enTopicID]),
+  userID varchar(50),
+  instructorID varchar(50),
   [status] bit,
 );
 
 CREATE TABLE [Review] (
-  reviewID int PRIMARY KEY,
-  artworkID int FOREIGN KEY REFERENCES [ArtWork]([artworkID]),
-  userID int,
-  instructorID int,
+  reviewID varchar(50) PRIMARY KEY,
+  artworkID varchar(50) FOREIGN KEY REFERENCES [ArtWork]([artworkID]),
+  userID varchar(50),
+  instructorID varchar(50),
   rate int,
   comment varchar(500),
   [date] date,
@@ -97,8 +97,8 @@ CREATE TABLE [Review] (
 );
 
 CREATE TABLE [Post] (
-  postID int PRIMARY KEY,
-  userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
+  postID varchar(50) PRIMARY KEY,
+  userRoleID varchar(50) FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
   cateID int FOREIGN KEY REFERENCES [Category]([cateID]),
   title varchar(1000),
   content varchar(3000),
