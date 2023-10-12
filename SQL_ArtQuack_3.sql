@@ -100,7 +100,7 @@ CREATE TABLE [Post] (
   postID int PRIMARY KEY,
   userRoleID int FOREIGN KEY REFERENCES [UserRole]([userRoleID]),
   cateID int FOREIGN KEY REFERENCES [Category]([cateID]),
-  topicID int FOREIGN KEY REFERENCES [Topic]([topicID]),
+  title varchar(1000),
   content varchar(3000),
   [status] bit,
 );
